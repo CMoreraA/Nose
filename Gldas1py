@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Apr 18 21:09:41 2022
+
+@author: camilamorera
+"""
+
+# Set the URL string to point to a specific data URL. Some generic examples are:
+#   https://servername/data/path/file
+   #   https://servername/opendap/path/file[.format[?subset]]
+   #   https://servername/daac-bin/OTF/HTTP_services.cgi?KEYWORD=value[&KEYWORD=value]
+URL = 'https://hydro1.gesdisc.eosdis.nasa.gov/data/GLDAS/GLDAS_NOAH025_M.2.1/2000/GLDAS_NOAH025_M.A200001.021.nc4'
+   
+   # Set the FILENAME string to the data file name, the LABEL keyword value, or any customized name. 
+FILENAME = '/Users/camilamorera/Documents/Maestria/Informacion/GLDAS'
+   
+import requests
+result = requests.get(URL)
+try:
+   result.raise_for_status()
+   f = open(FILENAME,'wb')
+   f.write(result.content)
+   f.close()
+   print('contents of URL written to '+FILENAME)
+except:
+   print('requests.get() returned an error code '+str(result.status_code))
+   
